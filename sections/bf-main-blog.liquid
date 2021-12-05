@@ -1,0 +1,30 @@
+<section class="collection-intro py5">
+    <div class="container">
+        <div class="p-5 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-5 text-center">
+                {% assign blog_title = section.settings.blog_title | default: blog.title %}
+                <h1 class="display-5 fw-bold">{{ blog.title }}</h1>
+                <p class="col-md-8 mx-auto">{{ section.settings.blog_description }}</p>
+                test
+            </div>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Main Blog",
+    "settings": [
+        {
+            "type": "text",
+            "id": "blog_title",
+            "label": "Blog Title"
+        },
+        {
+            "type": "textarea",
+            "id": "blog_description",
+            "label": "Blog Description"
+        }
+    ]
+}
+{% endschema %}
