@@ -1,0 +1,196 @@
+<div class="container">
+	<h1 class="section-title">{{ section.settings.section_heading }}</h1>
+	<div class="glider-contain">
+		{% if section.settings.show_arrows == true and section.blocks.size > section.settings.items_to_show %}
+			<div class="arrows">
+				<button aria-label="Previous" class="glider-prev">«</button>
+				<button aria-label="Next" class="glider-next">»</button>
+			</div><!-- /.arrows -->
+		{% endif %}
+		<div class="testimonial-glider" data-items="{{ section.settings.items_to_show }}">
+			{% for block in section.blocks %}
+				{% case block.type %}
+					{% when 'testimonial' %}
+						<div class="testimonial card justify-content-start">
+							<div class="image-testimonial bg-danger">
+								{% if block.settings.image_testimonial != blank %}
+									{{ block.settings.image_testimonial | img_url: 'master' | img_tag }}
+								{% else %}
+									{{ "image" | placeholder_svg_tag }}	
+								{% endif %}
+							</div><!-- /.image -->
+							<div class="content p-3">
+								<div class="rate d-flex justify-content-center mb-3">
+									{% for star in (1..block.settings.rate_testimonial) %}
+										<svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" class="svg-inline--fa fa-star fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" width="20px" height="20px"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg>
+									{% endfor %}
+								</div><!-- /.rate -->
+								<div class="author text-center mb-3">
+									<h3>{{ block.settings.author_testimonial }}</h3>
+								</div><!-- /.author -->
+								<div class="description text-center">
+									{{ block.settings.description_testimonial }}
+								</div><!-- /.description -->
+							</div><!-- /.content -->
+						</div><!-- /.testimonial -->
+				{% endcase %}
+			{% endfor %}
+		</div><!-- /.testimonial-glider -->
+		{% if section.settings.show_indicators == true and section.blocks.size > section.settings.items_to_show %}
+			<div role="tablist" class="dots"></div>
+		{% endif %}
+	</div><!-- /.glider-contain -->
+</div><!-- /.page-width -->
+
+{% style %}
+
+	.box-testimonials {
+		padding-top: 80px;
+		padding-bottom: 80px;
+	}
+
+	.section-title {
+		margin-bottom: 50px;
+	}
+
+	.glider-contain {
+		min-width: calc(100% + 30px);
+		margin-left: -15px;
+		margin-right: -15px;
+	}
+
+	.testimonial-glider .testimonial {
+		margin-left: 15px;margin-right: 15px;
+	}
+
+	.testimonial-glider .testimonial .image-testimonial {
+		display: block;
+		position: relative;
+		padding-bottom: 100%;
+		background-color: transparent;
+		overflow: hidden;
+	}
+	  
+	.testimonial-glider .testimonial .image-testimonial img, .testimonial-glider .testimonial .image-testimonial svg {
+		display: block;
+		max-width: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+		object-position: center;
+	}
+
+	.testimonial-glider .testimonial .image-testimonial svg path {
+		fill: #FFFFFF;
+	}
+	  
+	.testimonial-glider .testimonial .content {
+		text-align: center;
+		padding-top: 15px;
+	}
+
+	.testimonial-glider .testimonial .rate svg path {
+		fill: #fbc100;
+	}
+
+	.glider-contain .arrows {
+		text-align: right;
+		padding-right: 15px;
+	}
+
+	.glider-prev,.glider-next {
+		position: static;
+	}
+
+	.dots {
+		margin-top: 20px;
+	}
+{% endstyle %}
+
+
+{% javascript %}
+	setInterval( () => {
+    	new Glider(document.querySelector('.testimonial-glider'), {
+      		slidesToShow: document.querySelector('.testimonial-glider').dataset.items,
+      		dots: '.dots',
+      		arrows: {
+        		prev: '.glider-prev',
+        		next: '.glider-next'
+      		}
+    	});
+  	}, 50)
+{% endjavascript %}
+
+{% schema %}
+{
+	"name": "Testimonials",
+	"tag": "section",
+	"class": "box-testimonials",
+	"settings": [
+		{
+			"type": "text",
+			"id": "section_heading",
+			"label": "Section Heading",
+			"default": "Testimonios"
+		},
+		{
+			"type": "checkbox",
+			"id": "show_arrows",
+			"label": "Show Arrows?",
+			"default": true
+		},
+		{
+			"type": "checkbox",
+			"id": "show_indicators",
+			"label": "Show Indicators?",
+			"default": false
+		},
+		{
+			"type": "range",
+			"id": "items_to_show",
+			"label": "Slides to show?",
+			"min": 1,
+			"max": 6,
+			"step": 1,
+			"default": 4
+		}
+	],
+	"blocks": [
+		{
+			"name": "Testimonial",
+			"type": "testimonial",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image_testimonial",
+					"label": "Image"
+				},
+				{
+					"type": "range",
+					"id": "rate_testimonial",
+					"label": "Rate",
+					"min": 1,
+					"max": 5,
+					"step": 1,
+					"default": 2
+				},
+				{
+					"type": "text",
+					"id": "author_testimonial",
+					"label": "Author",
+					"default": "John Doe"
+				},
+				{
+					"type": "richtext",
+					"id": "description_testimonial",
+					"label": "Testimonial",
+					"default": "<p>Este es un gran sitio para comprar ya que tiene precios bajos y ropa de buena calidad.</p>"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

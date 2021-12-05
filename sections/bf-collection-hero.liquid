@@ -1,0 +1,82 @@
+<div class="container">
+    <div class="p-5 bg-light rounded-3">
+        <div class="container-fluid text-center">
+            {% for block in section.blocks %}
+                {% if block.type == 'collection_title' %}
+                    {% assign title = block.settings.title | default: collection.title %}
+                    <h1 class="display-5 fw-bold mb-4">{{ title }}</h1>
+                {% elsif block.type == 'collection_description' %}
+                    {% assign description = block.settings.description | default: collection.description %}
+                    <p class="col-md-8 mx-auto">{{ description }}</p>
+                {% elsif block.type == 'separator' %}
+                    {% unless block.settings.add_separator == false %}
+                        <hr class="my-5">
+                    {% endunless %}
+                {% elsif block.type == 'collection_leading_text' %}
+                    {% unless block.settings.leading_text == blank %}
+                        <p>{{ block.settings.leading_text }}</p>
+                    {% endunless %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Collection Hero",
+    "tag": "section",
+    "class": "mt-5 mb-5",
+    "blocks": [
+        {
+            "name": "Collection Title",
+            "type": "collection_title",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title"
+                }
+            ]
+        },
+        {
+            "name": "Collection Description",
+            "type": "collection_description",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "textarea",
+                    "id": "description",
+                    "label": "Description"
+                }
+            ]
+        },
+        {
+            "name": "Separator",
+            "type": "separator",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "checkbox",
+                    "id": "add_separator",
+                    "label": "Add Separator",
+                    "default": true
+                }
+            ]
+        },
+        {
+            "name": "Collection Lead Text",
+            "type": "collection_leading_text",
+            "limit": 1,
+            "settings": [
+                {
+                    "type": "textarea",
+                    "id": "leading_text",
+                    "label": "Leading Text"
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}

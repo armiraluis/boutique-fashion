@@ -1,0 +1,172 @@
+<div class="container">
+	<h1 class="collection-title text-center display-6">{{ section.settings.section_title }}</h1>
+	{% if section.settings.collection_layout == "grid" %}
+		<div class="container-grid">
+			{% for product in collections[section.settings.collection_selected].products %}
+				{% render 'bf-product', product: product %} 
+			{% else %}
+				<p class="error-collection">Please select a collection</p>	 
+			{% endfor %}
+		</div><!-- /.container-grid -->
+	{% endif %}
+	{% if section.settings.collection_layout == "slider" %}
+		<div class="glider-contain">
+			{% if collections[section.settings.collection_selected].products.size > 0 %}
+				<div class="arrows mb-3">
+					<button aria-label="Previous" class="glider-prev">«</button>
+					<button aria-label="Next" class="glider-next">»</button>
+				</div><!-- /.arrows -->
+			{% endif %}
+			<div class="glider">
+				{% for product in collections[section.settings.collection_selected].products %}
+					{% render 'bf-product', product: product %} 
+				{% else %}
+					<p class="error-collection">Please select a collection</p>	 
+				{% endfor %}
+			</div><!-- /.glider -->
+			<div role="tablist" class="dots mt-3"></div>
+		</div><!-- /.glider-contain -->
+	{% endif %}
+</div><!-- /.page-width -->
+
+{% javascript %}
+  setInterval( () => {
+    new Glider(document.querySelector('.glider'), {
+		slidesToShow: 4,
+		dots: '.dots',
+		arrows: {
+		  prev: '.glider-prev',
+		  next: '.glider-next'
+		}
+	});
+  }, 50)
+{% endjavascript %}
+
+{% style %}
+	.collection {
+		padding: 80px 0px;
+	}
+  
+	.collection-title {
+		text-align: left;
+		margin-top: 0;
+		margin-bottom: 50px;
+	}
+
+	.error-collection {
+		width: 100%;
+		text-align: center;
+	}
+  
+  	.container-grid {
+		min-width: 100%;
+		display: flex;
+		flex-wrap: wrap;
+		margin-left: -15px;
+		margin-right: -15px;
+  	}
+  
+  	.container-grid .product {
+		width: calc(100% / 4 - 30px);
+		margin-right: 15px;
+		margin-left: 15px;
+		margin-bottom: 30px;
+  	}
+  
+  	.container-grid .product .image {
+		display: block;
+		position: relative;
+		padding-bottom: 100%;
+		background-color: transparent;
+		overflow: hidden;
+  	}
+  
+  	.container-grid .product .image img {
+		display: block;
+		max-width: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+  	}
+
+	.glider-contain {
+		margin-left: -15px;
+		margin-right: -15px;
+	}
+
+	.glider .product {
+		margin-left: 15px;margin-right: 15px;
+	}
+	  
+	.glider .product .image {
+		display: block;
+		position: relative;
+		padding-bottom: 100%;
+		background-color: transparent;
+		overflow: hidden;
+	}
+	  
+	.glider .product .image img {
+		display: block;
+		max-width: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+	}
+	  
+	.glider .product .content {
+		text-align: left;
+		padding-top: 15px;
+	}
+
+	.glider-contain .arrows {
+		text-align: right;
+		padding-right: 15px;
+	}
+
+	.glider-prev,.glider-next {
+		position: static;
+	}
+{% endstyle %}
+
+{% schema %}
+{
+	"name": "Collection",
+	"tag": "section",
+	"class": "collection",
+	"settings": [
+		{
+			"type": "text",
+			"id": "section_title",
+			"label": "Section Title",
+			"default": "Section Title"
+		},
+		{
+			"type": "radio",
+			"id": "collection_layout",
+			"label": "Select Layout",
+			"options": [
+				{
+					"value": "grid",
+					"label": "Grid"
+				}, 
+				{
+					"value": "slider",
+					"label": "Slider"
+				}
+			],
+			"default": "grid"
+		},
+		{
+			"type": "collection",
+			"id": "collection_selected",
+			"label": "Select a collection"
+		}
+	]
+
+}
+{% endschema %}

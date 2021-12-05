@@ -1,0 +1,13 @@
+<a class="card product d-block text-decoration-none h-100" href="{{ product.url }}">
+    <div class="image">
+        {{ product.featured_image | img_url: 'master' | img_tag: '', 'w-100' }}
+    </div><!-- /.image -->
+    <div class="content p-3 text-center text-dark">
+        <div class="product-title">
+            {{ product.title }}
+        </div><!-- /.product-title -->
+        <div class="product-price">
+            <strong>{{ product.price | money_with_currency }}</strong>
+        </div><!-- /.product-price -->
+    </div><!-- /.content -->
+</a><!-- /.product -->

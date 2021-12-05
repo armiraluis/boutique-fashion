@@ -1,0 +1,81 @@
+<div class="alert mb-0" role="alert">
+    <div class="container text-center">
+        {{ section.settings.message_alert }}
+    </div>
+</div>
+
+{%- style -%}
+  .{{ section.id }} {
+    background-color: {{ section.settings.background_alert }};
+    padding: {{ section.settings.padding_alert }}px;
+    color: {{ section.settings.color_alert }};
+    line-height: 1.5;
+    font-size: {{ section.settings.font_size_alert }}px;
+  }
+{%- endstyle -%}
+
+{% schema %}
+{
+    "name": "Alert",
+    "tag": "section",
+    "class": "bf-alerts",
+    "settings": [
+        {
+            "type": "header",
+            "content": "Message"
+        },
+        {
+            "type": "textarea",
+            "id": "message_alert",
+            "label": "Write a message to show.",
+            "default": "Promocion"
+        },
+        {
+            "type": "header",
+            "content": "Background Color"
+        },
+        {
+            "type": "color",
+            "id": "background_alert",
+            "label": "Select a color",
+            "default": "#000000"
+        },
+        {
+            "type": "header",
+            "content": "Text Color"
+        },
+        {
+            "type": "color",
+            "id": "color_alert",
+            "label": "Select a color",
+            "default": "#FFFFFF"
+        },
+        {
+            "type": "header",
+            "content": "Font Size"
+        },
+        {
+            "type": "range",
+            "id": "font_size_alert",
+            "label": "Size",
+            "min": 1,
+            "max": 100,
+            "step": 1,
+            "default": 16
+        },
+        {
+            "type": "header",
+            "content": "Padding"
+        },
+        {
+            "type": "range",
+            "id": "padding_alert",
+            "label": "The padding are used in four sides.",
+            "min": 1,
+            "max": 100,
+            "step": 1,
+            "default": 20
+        }
+    ]
+}
+{% endschema %}

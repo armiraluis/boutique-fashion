@@ -1,14 +1,14 @@
 {
   "sections": {
-    "banner": {
-      "type": "main-collection-banner"
+    "hero": {
+      "type": "bf-collection-hero"
     },
-    "product-grid": {
-      "type": "main-collection-product-grid"
+    "product-collection": {
+      "type": "bf-collection-products"
     }
   },
   "order": [
-    "banner",
-    "product-grid"
+    "hero",
+    "product-collection"
   ]
 }

@@ -1,0 +1,93 @@
+<section class="py-5 my-4">
+    <div class="container">
+        <div class="product-recommendations position-relative" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit=8">
+            <h1 class="section-title">{{ section.settings.section_heading }}</h1>
+
+            {% if recommendations.performed and recommendations.products_count > 0 %}
+                <div class="box-nav w-100 text-end pe-3 mb-3">
+                    <button aria-label="Previous" class="glider-prev position-static">«</button>
+                    <button aria-label="Next" class="glider-next position-static">»</button>
+                </div>
+                <div class="recommendations-slider">
+                    {% for product in recommendations.products %}
+                        <div class="item me-3">
+                            <div class="card h-100">
+                                <div class="product-img">
+                                    {% if product.featured_image == blank %}
+                                        {{ 'product-1' | placeholder_svg_tag }}
+                                    {% else %}
+                                        {{ product.featured_image | img_url: 'master' | img_tag: 'alt', 'w-100' }}
+                                    {% endif %}
+                                </div>
+                                <div class="card-body text-center">
+                                    <a href="{{ product.url }}" class="text-decoration-none text-dark">
+                                        <h4 class="card-title">{{ product.title }}</h4>
+                                    </a>
+                                    <p class="card-text">{{ product.price | money_with_currency }}</p>
+                                    <a href="#0" class="btn btn-outline-danger">View Details</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div role="tablist" class="dots mt-3"></div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% style %}
+    .section-title {
+        margin-bottom: 50px;
+	}
+{% endstyle %}
+
+<script>
+    window.addEventListener('load', function() {
+        const handleIntersection = (entries, observer) => {
+            if (!entries[0].isIntersecting) return;
+            observer.unobserve(productRecommendationsSection);
+            const url = productRecommendationsSection.dataset.url;
+
+            fetch(url)
+            .then(response => response.text())
+            .then(text => {
+                const html = document.createElement('div');
+                html.innerHTML = text;
+
+                const recommendations = html.querySelector('.product-recommendations');
+                if (recommendations && recommendations.innerHTML.trim().length) {
+                    productRecommendationsSection.innerHTML = recommendations.innerHTML;
+                    let slider = new Glider(document.querySelector('.recommendations-slider'), {
+                        slidesToShow: 4,
+                        dots: '.dots',
+                        arrows: {
+                        prev: '.glider-prev',
+                        next: '.glider-next'
+                        }
+                    });
+                }
+            })
+            .catch(e => {
+                console.log(e);
+            })
+        }
+        const productRecommendationsSection = document.querySelector('.product-recommendations');
+        const observer = new IntersectionObserver(handleIntersection, { rootMargin: '0px 0px 200px 0px'});
+        observer.observe(productRecommendationsSection);
+    })
+</script>
+
+{% schema %}
+{
+    "name": "Product Recommendations",
+    "settings": [
+        {
+            "type": "text",
+            "id": "section_heading",
+            "label": "Section Heading",
+            "default": "Produtos Recomendados"
+        }
+    ]
+}
+{% endschema %}

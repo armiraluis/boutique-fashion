@@ -1,0 +1,109 @@
+<section class="cart-details py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h5 class="text-center display-6 mb-5">{{ section.settings.section_heading }}</h5>
+            </div>
+        </div>
+        <form action="{{ routes.cart_url }}">
+            <div class="row">
+                <div class="col-12">
+                    <div class="product-table-wrapper shadow">
+                        <table class="table align-middle">
+                            <thead class="bg-secondary text-white">
+                                <tr>
+                                    <th class="scope py-3 text-center">#</th>
+                                    <th class="scope py-3">Producto</th>
+                                    <th class="scope py-3">Precio</th>
+                                    <th class="scope py-3">Cantidad</th>
+                                    <th class="scope py-3">Total</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody class="border-top-0">
+                                {% for item in cart.items %}
+                                    <tr>
+                                        <td scope="row">
+                                            <div class="text-center p-2">
+                                                {{ forloop.index }}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="product d-flex">
+                                                <div class="image" style="width: 100px">
+                                                    {{ item.image | img_url: "master" | img_tag: '', 'img-thumbnail' }}
+                                                </div>
+                                                <a href="{{ item.url }}" class="product p-2 text-decoration-none text-dark">
+                                                    <h6>{{ item.title }}</h6>
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td>{{ item.final_price | money_with_currency }}</td>
+                                        <td>
+                                            <div class="input-group" style="max-width: 150px">
+                                                <button type="button" class="btn btn-secondary form-control btn-decrease">-</button>
+                                                <input type="text" name="updates[]" value="{{ item.quantity }}" class="form-control input-group-text quantity-items">
+                                                <button type="button" class="btn btn-secondary form-control btn-increase">+</button>
+                                            </div>
+                                        </td>
+                                        <td>{{ item.final_price | money_with_currency }}</td>
+                                        <td>
+                                            <a href="{{ item.url_to_remove }}" class="text-danger">
+                                                <svg width="20px" height="20px" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash" class="svg-inline--fa fa-trash fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"></path></svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-auto ms-auto">
+                    <div class="product-ctas mt-4">
+                        <p class="fs-5">Monto Total: <span><strong>{{ cart.total_price | money_with_currency }}</strong></span></p>
+                        <input type="submit" value="Actualizar carrito" class="btn btn-outline-danger w-100 mt-2 py-3">
+                        <input type="submit" value="Pagar" name="checkout" class="btn btn-danger w-100 mt-2 py-3">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+    let btnsDecrease = document.querySelectorAll('.btn-decrease');
+    let btnsIncrease = document.querySelectorAll('.btn-increase');
+    let quantity = document.querySelectorAll('.quantity-items');
+
+    for (let index = 0; index < btnsDecrease.length; index++) {
+       let btnDecrease = btnsDecrease[index];        
+
+        btnDecrease.addEventListener('click', function() {
+            if (btnDecrease.nextElementSibling.value > 1) {
+                btnDecrease.nextElementSibling.value = parseInt(btnDecrease.nextElementSibling.value) - 1;
+            }
+        })
+    }
+
+    for (let index = 0; index < btnsIncrease.length; index++) {
+       let btnIncrease = btnsIncrease[index];        
+
+       btnIncrease.addEventListener('click', function() {
+            btnIncrease.previousElementSibling.value = parseInt(btnIncrease.previousElementSibling.value) + 1;
+        })
+    }
+</script>
+
+{% schema %}
+{
+    "name": "Main Cart",
+    "settings": [
+        {
+            "type": "text",
+            "id": "section_heading",
+            "label": "Section Heading",
+            "default": "Shoping Cart"
+        }
+    ]
+}
+{% endschema %}

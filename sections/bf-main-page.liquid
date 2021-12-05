@@ -1,0 +1,26 @@
+<section class="page py-5">
+    <div class="box-content {% if section.settings.use_container == true %} container {% endif %}">
+        <div class="title-page">
+            <h1 class="display-6 text-center mb-4">{{ page.title }}</h1>
+        </div>
+        <div class="content-page">
+            <p>
+                {{ page.content }}
+            </p>
+        </div>
+    </div>
+</section>
+
+{% schema %}
+{
+    "name": "Main Page",
+    "settings": [
+        {
+            "type": "checkbox",
+            "id": "use_container",
+            "label": "Use a container",
+            "default": true 
+        }
+    ]
+}
+{% endschema %}

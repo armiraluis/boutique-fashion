@@ -1,0 +1,90 @@
+<section class="featured-collection-grid pb-5">
+    <div class="container">
+        <div class="collection-filters">
+            <div class="sort-by">
+                <div class="row">
+                    <div class="col-auto">
+                        <div class="input-group mb-3">
+                            <label for="inputGroupSelect01" class="input-group-text">Ordenar por:</label>
+                            <select id="inputGroupSelect01" class="form-select">
+                                {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+                                {% for option in collection.sort_options %}
+                                    <option value="{{ option.value }}" {% if sort_by == option.value %} selected="selected" {% endif %}>{{ option.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% paginate collection.products by 4 %}
+                {% for product in collection.products %}
+                    <div class="col-12 col-sm-6 col-lg-3 mt-4">
+                        {% render 'bf-product', product: product %}
+                    </div>
+                {% endfor %}
+
+                {% if paginate.pages > 1 %}
+                    <div class="collection-pagination d-flex justify-content-center">
+                        <nav aria-label="Collection navigation">
+                            <ul class="pagination mt-5">
+                                {% if paginate.previous.is_link %}
+                                    <li class="page-item">
+                                        <a class="page-link text-dark" href="{{ paginate.previous.url }}">Anterior</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link text-muted">Anterior</span>
+                                    </li>    
+                                {% endif %}
+                                {% for part in paginate.parts %}
+                                    {% if part.is_link %}
+                                        <li class="page-item">
+                                            <a class="page-link text-dark" href="{{ part.url }}">{{ part.title }}</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled">
+                                            <span class="page-link text-muted">{{ part.title }}</span>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if paginate.next.is_link %}
+                                    <li class="page-item">
+                                        <a class="page-link text-dark" href="{{ paginate.next.url }}">Siguiente</a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link text-muted">Siguiente</span>
+                                    </li>    
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                {% endif %}
+            {% endpaginate %}
+        </div>
+    </div>
+</section>
+
+<script>
+    let urlParams = {};
+
+    if (location.search.length) {
+        let params = location.search.substr(1).split('&');
+        for (let i = 0; i < params.length; i++) {
+            let keyValue = params[i].split('=');
+
+            if (keyValue.length) {
+                urlParams[decodeURIComponent(keyValue[0])] = decodeURIComponent(keyValue[1]);
+            }
+        }
+    }
+
+    document.querySelector('.form-select').addEventListener('change', function(e) {
+        let value = e.target.value;
+        urlParams.sort_by = value;
+        location.search = new URLSearchParams(urlParams).toString();
+    })
+</script>
