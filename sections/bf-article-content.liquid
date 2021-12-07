@@ -1,10 +1,116 @@
 <div>
-    <p>{{ article.content }}</p>
+    {% for block in section.blocks %}
+        {% if block.type == 'content' %}
+            <div class="content mb-5">
+                {{ article.content }}
+            </div>
+        {% elsif block.type == 'tags' %}
+            <div class="tags mb-5">
+                {% for tag in article.tags %}
+                    <span class="d-inline-block bg-danger badge">{{ tag | prepend: "#" | link_to_tag: tag }}</span>
+                {% endfor %}
+            </div>
+        {% elsif block.type == 'share' %}
+            <div class="share mb-5">
+                {% if block.settings.facebook == true %}
+                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ canonical_url }}" class="d-inline-block text-dark me-4">
+                        {% render 'icon-facebook'  %}
+                    </a>
+                {% endif %}
+                {% if block.settings.twitter == true %}
+                    <a href="https://twitter.com/intent/tweet?url={{ canonical_url }}" class="d-inline-block text-dark me-4">
+                        {% render 'icon-twitter'  %}
+                    </a>
+                {% endif %}
+                {% if block.settings.linkedin == true %}
+                    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ canonical_url }}" class="d-inline-block text-dark me-4">
+                        {% render 'icon-linkedin'  %}
+                    </a>
+                {% endif %}
+                {% if block.settings.email == true %}
+                    <a href="mailto:?subject={{ article.title }}&amp;body=Check this article {{ canonical_url }}" class="d-inline-block text-dark me-4">
+                        {% render 'icon-envelope'  %}
+                    </a>
+                {% endif %}
+            </div>
+        {% elsif block.type == 'comments' %}
+            <div class="comments">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus voluptate reprehenderit quis, ea beatae obcaecati nesciunt! Distinctio ea architecto minus excepturi rerum, doloremque commodi odit placeat dolorem assumenda, tenetur vero!
+            </div>
+        {% elsif block.type == 'form' %}
+            <div class="form">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus voluptate reprehenderit quis, ea beatae obcaecati nesciunt! Distinctio ea architecto minus excepturi rerum, doloremque commodi odit placeat dolorem assumenda, tenetur vero!
+            </div>
+        {% endif %}
+    {% endfor %}
 </div>
+
+<style>
+    .share  {
+        display: flex;
+    }
+
+    .share svg {
+        width: 35px;
+        height: 35px;
+    }
+
+    .tags a {
+        color: #FFFFFF;
+        text-decoration: none;
+        font-size: 14px;
+        padding: 5px 10px;
+        display: block;
+    }
+</style>
 
 {% schema %}
 {
     "name": "Article Content",
-    "class": "col-12 col-md-8 col-lg-9"
+    "class": "col-12 col-md-8 col-lg-9",
+    "blocks": [
+        {
+            "name": "Content",
+            "type": "content"
+        },
+        {
+            "name": "Tags",
+            "type": "tags"
+        },
+        {
+            "name": "Share",
+            "type": "share",
+            "settings": [
+                {
+                    "type": "checkbox",
+                    "id": "facebook",
+                    "label": "Facebook",
+                    "default": true
+                },
+                {
+                    "type": "checkbox",
+                    "id": "twitter",
+                    "label": "Twitter",
+                    "default": true
+                },
+                {
+                    "type": "checkbox",
+                    "id": "linkedin",
+                    "label": "Linkedin",
+                    "default": true
+                },
+                {
+                    "type": "checkbox",
+                    "id": "email",
+                    "label": "Email",
+                    "default": true
+                }
+            ]
+        },
+        {
+            "name": "Comments",
+            "type": "comments"
+        }
+    ]
 }
 {% endschema %}

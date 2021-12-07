@@ -1,7 +1,66 @@
-<h1>Sidebar</h1>
+<div class="blocks">
+    {% for block in section.blocks %}
+        {% if block.type == 'title' %}
+            <div class="title mb-3">
+                <h4>{{ block.settings.title_sidebar }} </h4>
+            </div>
+        {% elsif block.type == 'text' %}
+            <div class="text mb-4">
+                <p>
+                    {{ block.settings.text_sidebar }}
+                </p>
+            </div>
+        {% elsif block.type == 'image' %}
+            <div class="image mb-4">
+                {% if block.settings.image_sidebar != blank%}
+                    {{ block.settings.image_sidebar | img_url: 'master' | img_tag: '', 'w-100' }}
+                {% else %}
+                    {{ 'image' | placeholder_svg_tag }}    
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+</div>
 {% schema %}
 {
     "name": "Article Sidebar",
-    "class": "col-12 col-md-4 col-lg-3"
+    "class": "col-12 col-md-4 col-lg-3",
+    "blocks": [
+        {
+            "name": "Title",
+            "type": "title",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "title_sidebar",
+                    "label": "Title",
+                    "default": "Titulo"
+                }
+            ]
+        },
+        {
+            "name": "Text",
+            "type": "text",
+            "settings": [
+                {
+                    "type": "textarea",
+                    "id": "text_sidebar",
+                    "label": "Text",
+                    "default": "Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño. "
+                }
+            ]
+        },
+        {
+            "name": "Image",
+            "type": "image",
+            "settings": [
+                {
+                    "type": "image_picker",
+                    "id": "image_sidebar",
+                    "label": "Image"
+                }
+            ]
+        }
+    ]
 }
 {% endschema %}
