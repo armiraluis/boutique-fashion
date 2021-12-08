@@ -43,6 +43,9 @@
                                 <div class="card-header">
                                     Por: <strong>{{ comment.author }}</strong> Publicacion: <em>{{ comment.created_at | date: "%b %d, %Y" }}</em>
                                 </div>
+                                <div class="card-body">
+                                    <p class="card-text">{{ comment.content }}</p>
+                                </div>
                             </div>
                         {% endfor %}
                     {% endpaginate %}
