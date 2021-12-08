@@ -34,12 +34,47 @@
                 {% endif %}
             </div>
         {% elsif block.type == 'comments' %}
-            <div class="comments">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus voluptate reprehenderit quis, ea beatae obcaecati nesciunt! Distinctio ea architecto minus excepturi rerum, doloremque commodi odit placeat dolorem assumenda, tenetur vero!
+            <div class="comments mb-5">
+                <div class="col-12">
+                    <h3>{{ article.comments_count }} {% if article.comments_count > 1 %} Comments {% else %} Comment {% endif %}</h3>
+                    {% paginate article.comments by 5 %}
+                        {% for comment in article.comments %}
+                            <div class="card my3 shadow">
+                                <div class="card-header">
+                                    Por: <strong>{{ comment.author }}</strong> Publicacion: <em>{{ comment.created_at | date: "%b %d, %Y" }}</em>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endpaginate %}
+                </div>
             </div>
         {% elsif block.type == 'form' %}
-            <div class="form">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus voluptate reprehenderit quis, ea beatae obcaecati nesciunt! Distinctio ea architecto minus excepturi rerum, doloremque commodi odit placeat dolorem assumenda, tenetur vero!
+            <div class="form mb-5">
+                <div class="col-12">
+                    <h3>Haz un comentario</h3>
+                    {% form 'new_comment', article %} 
+                        <div class="form-floating mb-3">
+                            <input type="text" name="comment[author]" value="{{ form.author }}" class="form-control" id="floatingText" placeholder="Nombre">
+                            <label for="floatingText">Nombre</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" name="comment[email]" value="{{ form.email }}" class="form-control" id="floatingInput" placeholder="nombre@ejemplo.com">
+                            <label for="floatingInput">Correo electronico</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <textarea name="comment[body]" id="floatingMessage" placeholder="Mensaje" class="form-control">{{ form.body }}</textarea>
+                            <label for="floatingMessage">Mensaje</label>
+                        </div>
+                        <input type="submit" value="Enviar Comentario" class="btn btn-primary mt-3">
+                        {% if form.errors %}
+                            <div class="alert alert-danger mt-3 w-auto d-inline-block" role="alert">{{ form.errors | default_errors }}</div>
+                        {% endif %}
+                    {% endform %}
+                </div>
+            </div>
+        {% elsif block.type == 'blog' %}
+            <div class="blog">
+                <button>Regresar al blog</button>
             </div>
         {% endif %}
     {% endfor %}
@@ -110,6 +145,14 @@
         {
             "name": "Comments",
             "type": "comments"
+        },
+        {
+            "name": "Form Comment",
+            "type": "form"
+        },
+        {
+            "name": "Blog Button",
+            "type": "blog"
         }
     ]
 }

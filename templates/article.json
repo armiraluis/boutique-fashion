@@ -2,10 +2,54 @@
 	"layout": "article",
 	"sections": {
 		"content": {
-			"type": "bf-article-content"
+			"type": "bf-article-content",
+			"blocks": {
+				"content": {
+					"type": "content"
+				},
+				"tags": {
+					"type": "tags"
+				},
+				"share": {
+					"type": "share"
+				},
+				"comments": {
+					"type": "comments"
+				},
+				"form": {
+					"type": "form"
+				},
+				"blog": {
+					"type": "blog"
+				}
+			},
+			"block_order": [
+				"content",
+				"tags",
+				"share",
+				"comments",
+				"form",
+				"blog"
+			]
 		},
 		"sidebar": {
-			"type": "bf-article-sidebar"
+			"type": "bf-article-sidebar",
+			"blocks": {
+				"title": {
+					"type": "title"
+				},
+				"text": {
+					"type": "text"
+				},
+				"image": {
+					"type": "image"
+				}
+			},
+			"block_order": [
+				"title",
+				"text",
+				"image"
+			]
 		}
 	},
 	"order": [
