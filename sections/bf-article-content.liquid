@@ -39,7 +39,7 @@
                     <h3>{{ article.comments_count }} {% if article.comments_count > 1 %} Comments {% else %} Comment {% endif %}</h3>
                     {% paginate article.comments by 5 %}
                         {% for comment in article.comments %}
-                            <div class="card my3 shadow">
+                            <div class="card my-3 shadow">
                                 <div class="card-header">
                                     Por: <strong>{{ comment.author }}</strong> Publicacion: <em>{{ comment.created_at | date: "%b %d, %Y" }}</em>
                                 </div>
