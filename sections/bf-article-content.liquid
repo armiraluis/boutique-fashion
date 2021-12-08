@@ -73,8 +73,8 @@
                 </div>
             </div>
         {% elsif block.type == 'blog' %}
-            <div class="blog">
-                <button>Regresar al blog</button>
+            <div class="blog mb-5 d-flex justify-content-center">
+                <a href="{{ blog.url }}" class="btn btn-outline-danger">Regresar al blog</a>
             </div>
         {% endif %}
     {% endfor %}
