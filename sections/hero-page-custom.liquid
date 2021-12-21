@@ -1,21 +1,16 @@
-<section class="hero-section" style="background: {{ section.settings.bg_section }}; padding: {{ section.settings.padding_tb }}px 0;">
-	<div class="container">
-		<div class="row row-cols-1" style="max-width: {{ section.settings.max_width }}px; margin-left: auto; margin-right: auto;">
+<section class="hero-section">
+    <div class="overlay" style="background: {{ section.settings.background_hero }}"></div>
+	<div class="container box-text">
+		<div class="row row-cols-1 d-flex justify-content-center">
 			{% for block in section.blocks %}
 				{% case block.type %}
-					{% when 'image_thumbnail' %}
-						{% if block.settings.image %}
-							<div class="col pb-2 pt-2 d-flex {{ block.settings.position_image }}">
-								<img style="max-width: 100%; width: {{ block.settings.max_image }}px;" src="{{ block.settings.image | img_url: 'master' }}">
-							</div>
-						{% endif %}
 					{% when 'block_title' %}
-						<div class="col pb-2 pt-2 d-flex {{ block.settings.text_alignment }}">
-							<h1 class="ff-text" style="color: {{ section.settings.color_text }}; font-family: {{ section.settings.heading_font.fallback_families }};">This is the title</h1>
+						<div class="col pb-2 pt-2 text-center">
+							<h1 class="ff-text display-4" style="color: {{ section.settings.text_color }}; font-family: {{ section.settings.heading_font.fallback_families }};">{{ block.settings.title_section }}</h1>
 						</div>
 					{% when 'block_description' %}
-						<div class="col pb-2 pt-2">
-							<p class="ff-text {{ block.settings.alignment }}" style="color: {{ section.settings.color_text }}; font-family: {{ section.settings.heading_font.fallback_families }};">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Culpa est exercitationem eum sapiente sunt praesentium qui consectetur enim, iure sit voluptatum nobis ex repellendus ratione! Fugiat est quae ut quam!</p>
+						<div class="col-6  pb-2 pt-2 text-center">
+							<div class="ff-text lead-text" style="color: {{ section.settings.text_color }}; font-family: {{ section.settings.heading_font.fallback_families }};">{{ block.settings.description_title }}</div>
 						</div>
 				{% endcase %}
 			{% endfor %}
@@ -23,38 +18,76 @@
 	</div>
 </section>
 
+<style>
+    .hero-section {
+        background-image: url("{{ section.settings.image_hero | img_url: 'master' }}");
+        background-size: cover;
+        background-position: center top;
+        background-repeat: no-repeat;
+        padding-top: 160px;
+        padding-bottom: 160px;
+        position: relative;
+    }
+
+    .hero-section .overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline;
+        opacity: 0.6;
+        z-index: 0;
+    }
+
+    .hero-section .box-text {
+        position: relative;
+        z-index: 10;
+    }
+
+    .hero-section .box-text p, .hero-section .box-text h1 {
+        text-shadow: 0px 0px 0px 5px #000000;
+        text-align: center;
+    }
+</style>
+
 {% schema %}
 {
 	"name": "Hero Section",
 	"settings": [
-		{
+        {
+            "type": "header",
+            "content": "Background Image"
+        },
+        {
+			"type": "image_picker",
+			"id": "image_hero",
+			"label": "Select Image"
+		},
+        {
+            "type": "header",
+            "content": "Background Overlay"
+        },
+        {
 			"type": "color_background",
-			"id": "bg_section",
-			"label": "Background Hero Section",
-			"default": "linear-gradient(#fff, #000)"
+			"id": "background_hero",
+			"label": "Background Hero",
+			"default": "linear-gradient(#F7F7F7, #FFFFFF)"
 		},
-		{
-			"type": "range",
-			"id": "padding_tb",
-			"label": "Padding Top And Bottom",
-			"max": 100,
-			"min": 30,
-			"step": 1,
-			"unit": "px",
-			"default": 50
-		},
+        {
+            "type": "header",
+            "content": "Text Color"
+        },
 		{
 			"type": "color",
-			"id": "color_text",
+			"id": "text_color",
 			"label": "Text Color",
-			"default": "#fff"
+			"default": "#FFFFFF"
 		},
-		{
-			"type": "number",
-			"id": "max_width",
-			"label": "Max Width",
-			"default": 1100
-		},
+        {
+            "type": "header",
+            "content": "Font Family"
+        },
 		{
 			"type": "font_picker",
 			"id": "heading_font",
@@ -63,43 +96,6 @@
 		}
 	],
 	"blocks": [
-		{
-			"name": "Image",
-			"type": "image_thumbnail",
-			"limit": 1,
-			"settings": [
-				{
-					"type": "image_picker",
-					"id": "image",
-					"label": "Select Image"
-				},
-				{
-					"type": "number",
-					"id": "max_image",
-					"label": "Add Number form Max Width",
-					"default": 500
-				},
-				{
-					"type": "select",
-					"id": "position_image",
-					"label": "Select Position Image",
-					"options": [
-						{
-							"value": "justify-content-star",
-							"label": "Left"
-						}, {
-							"value": "justify-content-center",
-							"label": "Center"
-						},
-						{
-							"value": "justify-content-end",
-							"label": "Right"
-						}
-					],
-					"default": "justify-content-center"
-				}
-			]
-		},
 		{
 			"name": "Title",
 			"type": "block_title",
@@ -110,25 +106,6 @@
 					"id": "title_section",
 					"label": "Title Section",
 					"default": "Title Section"
-				},
-				{
-					"type": "select",
-					"id": "text_alignment",
-					"label": "Select Alignment",
-					"options": [
-						{
-							"value": "justify-content-star",
-							"label": "Left"
-						}, {
-							"value": "justify-content-center",
-							"label": "Center"
-						},
-						{
-							"value": "justify-content-end",
-							"label": "Right"
-						}
-					],
-					"default": "justify-content-center"
 				}
 			]
 		},
@@ -142,25 +119,6 @@
 					"id": "description_title",
 					"label": "Description",
 					"default": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>"
-				},
-				{
-					"type": "select",
-					"id": "alignment",
-					"label": "Select Alignment",
-					"options": [
-						{
-							"value": "text-start",
-							"label": "Left"
-						}, {
-							"value": "text-center",
-							"label": "Center"
-						},
-						{
-							"value": "text-end",
-							"label": "Right"
-						}
-					],
-					"default": "text-center"
 				}
 			]
 		}
