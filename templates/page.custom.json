@@ -1,0 +1,15 @@
+{
+	"sections": {
+	  	"hero": {
+			"type": "hero-page-custom"
+	  	},
+	  	"main": {
+		  	"type": "main-page-custom"
+	  	}
+	},
+	"order": [
+	  	"hero",
+	  	"main"
+	]
+  }
+  

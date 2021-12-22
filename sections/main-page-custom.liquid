@@ -1,0 +1,166 @@
+<div class="container">
+	{% if section.blocks.size > 0 %}
+		{% for block in section.blocks %}
+			{% if block.type == 'html_block' %}
+				<div class="col-12 mt-5 my-5">
+					<p>Este bloque agrega un texto HTML</p>
+					<div class="py-5">
+						{{ block.settings.html }}
+					</div><!-- /Card -->
+				</div>
+			{% endif %}
+			{% if block.type == 'article_block' %}
+				{% assign item = block.settings.article %}
+				<p>Con este bloque obtenemos un articulo de nuestra eleccion.</p>
+				<div class="row d-flex justify-content-center">
+					<div class="col-12 col-sm-4 my-5 border-0">
+						<div class="card">
+							<div class="image" style="max-height: 300px; overflow: hidden;">
+								{% if item.object_type == 'article' %}
+									{{ item.image | img_url: 'master' | img_tag: '', "w-100" }}
+								{% elsif item.object_type == 'product' %}
+									{{ item.featured_image | img_url: 'master' | img_tag: '', "w-100" }}
+								{% else %}
+									{{ "image" | placeholder_svg_tag }}
+								{% endif %}
+							</div>
+							<div class="content p-4">
+								<h3><a href="{{ item.url }}" class="text-decoration-none text-dark text-center d-block">{{ item.title }}</a></h3>
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+			{% if block.type == 'liquid_block' %}
+				<p>Este bloque agrega un texto Liquid</p>
+				<div class="col-12 mt-5 mb-5 text-center">
+					{{ block.settings.battery_message }}
+				</div>
+			{% endif %}
+			{% if block.type == 'page_block' %}
+				{% assign item = block.settings.page %}
+				<p>Obtiene una paginaPage</p>
+				<div class="row d-flex justify-content-center">
+					<div class="col-12 col-md-4 mb-4 mt-5">
+						<div class="card">
+							<div class="image" style="max-height: 300px; overflow: hidden;">
+								{% if item.object_type == 'article' %}
+									{{ item.image | img_url: 'master' | img_tag: '', "w-100" }}
+								{% elsif item.object_type == 'product' %}
+									{{ item.featured_image | img_url: 'master' | img_tag: '', "w-100" }}
+								{% else %}
+									{{ "image" | placeholder_svg_tag }}
+								{% endif %}
+							</div>
+							<div class="content p-4">
+								<h3 class="pb-3"><a href="{{ item.url }}" class="text-decoration-none text-dark text-center d-block">{{ item.title }}</a></h3>
+								<p>{{ item.content | strip_html | truncate: 200 }}</p>
+	
+							</div>
+						</div>
+					</div>
+				</div>
+			{% endif %}
+			{% if block.type == 'url_block' %}
+				<p>Inserta una URL</p>
+				<div class="col-12 mt-5 mb-5 text-center">
+					<a href="{{ block.settings.button_link }}">Go to Homepage</a>
+				</div>
+			{% endif %}
+			{% if block.type == 'video_block' %}
+				<p>Muestra un Video agregando la URL</p>
+				<div class="row">
+					<div class="col-12 mt-5 mb-5 d-flex justify-content-center">
+						{% if block.settings.section_video %}
+							<iframe width="560" height="315" src="https://www.youtube.com/embed/{{ block.settings.section_video.id }}" allowfullscreen></iframe>
+						{% endif %}
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+</div>
+{% schema %}
+{
+	"name": "Section All Fields",
+	"tag": "section",
+	"blocks": [
+		{
+			"name": "HTML",
+			"type": "html_block",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "html",
+					"id": "html",
+					"label": "HTML"
+				}
+			]
+		},
+		{
+			"name": "Article",
+			"type": "article_block",
+			"settings": [
+				{
+					"type": "article",
+					"id": "article",
+					"label": "Article"
+				}
+			]
+		},
+		{
+			"name": "Liquid",
+			"type": "liquid_block",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "liquid",
+					"id": "battery_message",
+					"label": "Battery message",
+					"default": "This product can be shipped by ground or air."
+				}
+			]
+		},
+		{
+			"name": "Page",
+			"type": "page_block",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "page",
+					"id": "page",
+					"label": "Page"
+				}
+			]
+		},
+		{
+			"name": "URl",
+			"type": "url_block",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "url",
+					"id": "button_link",
+					"label": "Button link"
+				}
+			]
+		},
+		{
+			"name": "Video",
+			"type": "video_block",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "video_url",
+					"id": "section_video",
+					"label": "Product description video",
+					"accept": [
+						"youtube",
+						"vimeo"
+					]
+				}
+			]
+		}
+	]
+}
+{% endschema %}

@@ -1,0 +1,127 @@
+<section class="hero-section">
+    <div class="overlay" style="background: {{ section.settings.background_hero }}"></div>
+	<div class="container box-text">
+		<div class="row row-cols-1 d-flex justify-content-center">
+			{% for block in section.blocks %}
+				{% case block.type %}
+					{% when 'block_title' %}
+						<div class="col pb-2 pt-2 text-center">
+							<h1 class="ff-text display-4" style="color: {{ section.settings.text_color }}; font-family: {{ section.settings.heading_font.fallback_families }};">{{ block.settings.title_section }}</h1>
+						</div>
+					{% when 'block_description' %}
+						<div class="col-6  pb-2 pt-2 text-center">
+							<div class="ff-text lead-text" style="color: {{ section.settings.text_color }}; font-family: {{ section.settings.heading_font.fallback_families }};">{{ block.settings.description_title }}</div>
+						</div>
+				{% endcase %}
+			{% endfor %}
+		</div>
+	</div>
+</section>
+
+<style>
+    .hero-section {
+        background-image: url("{{ section.settings.image_hero | img_url: 'master' }}");
+        background-size: cover;
+        background-position: center top;
+        background-repeat: no-repeat;
+        padding-top: 160px;
+        padding-bottom: 160px;
+        position: relative;
+    }
+
+    .hero-section .overlay {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline;
+        opacity: 0.6;
+        z-index: 0;
+    }
+
+    .hero-section .box-text {
+        position: relative;
+        z-index: 10;
+    }
+
+    .hero-section .box-text p, .hero-section .box-text h1 {
+        text-shadow: 0px 0px 0px 5px #000000;
+        text-align: center;
+    }
+</style>
+
+{% schema %}
+{
+	"name": "Hero Section",
+	"settings": [
+        {
+            "type": "header",
+            "content": "Background Image"
+        },
+        {
+			"type": "image_picker",
+			"id": "image_hero",
+			"label": "Select Image"
+		},
+        {
+            "type": "header",
+            "content": "Background Overlay"
+        },
+        {
+			"type": "color_background",
+			"id": "background_hero",
+			"label": "Background Hero",
+			"default": "linear-gradient(#F7F7F7, #FFFFFF)"
+		},
+        {
+            "type": "header",
+            "content": "Text Color"
+        },
+		{
+			"type": "color",
+			"id": "text_color",
+			"label": "Text Color",
+			"default": "#FFFFFF"
+		},
+        {
+            "type": "header",
+            "content": "Font Family"
+        },
+		{
+			"type": "font_picker",
+			"id": "heading_font",
+			"label": "Heading font",
+			"default": "helvetica_n4"
+		}
+	],
+	"blocks": [
+		{
+			"name": "Title",
+			"type": "block_title",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "text",
+					"id": "title_section",
+					"label": "Title Section",
+					"default": "Title Section"
+				}
+			]
+		},
+		{
+			"name": "Description",
+			"type": "block_description",
+			"limit": 1,
+			"settings": [
+				{
+					"type": "richtext",
+					"id": "description_title",
+					"label": "Description",
+					"default": "<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>"
+				}
+			]
+		}
+	]
+}
+{% endschema %}
