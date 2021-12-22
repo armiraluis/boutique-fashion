@@ -1,0 +1,24 @@
+<section class="collections py-5">
+    <div class="container">
+        <div class="row" data-masonry='{"percentPosition": true }'>
+            {% for collection in collections %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="card">
+                        <div class="card-header p-0">
+                            {% if collection.image %}
+                                {{ collection.image | img_url: 'master' | img_tag: '', 'w-100' }}
+                            {% else %}
+                                {{ 'image' | placeholder_svg_tag }}    
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <a href="{{ collection.url }}" class="text-decoration-none text-dark text-center">
+                                <h5>{{ collection.title }}</h5>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>

@@ -1,7 +1,7 @@
 {
   "sections": {
     "main": {
-      "type": "main-list-collections",
+      "type": "bf-main-list-collections",
       "settings": {
         "image_ratio": "square"
       }
