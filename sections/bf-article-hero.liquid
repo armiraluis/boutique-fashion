@@ -2,7 +2,7 @@
 	<div class="p-5 bg-light background-hero" style="background-image: url({{ article.image | img_url: 'master' }})">
 		<div class="container-fluid text-center">
 			<h1>{{ article.title }}</h1>
-			<p class="text-center mt-4 mb-0">Autor: <a href="{{ article.user }}" class="text-decoration-none text-dark"><strong>{{ article.author }}</strong></a> <span class="px-1">|</span> Publicacion: <em>{{ article.published_at | date: "%a %b %d %Y" }}</em></p>
+			<p class="text-center mt-4 mb-0">Autor: <a href="/author/{{ article.author | replace: " ", "-" | downcase }}" class="text-decoration-none text-dark"><strong>{{ article.author }}</strong></a> <span class="px-1">|</span> Publicacion: <em>{{ article.published_at | date: "%a %b %d %Y" }}</em></p>
 		</div>
 	</div>
 </div>

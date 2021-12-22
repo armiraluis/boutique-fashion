@@ -1,15 +1,87 @@
 {
-	"layout": "article",
-	"sections": {
-		"content": {
-			"type": "bf-article-content"
-		},
-		"sidebar": {
-			"type": "bf-article-sidebar"
-		}
-	},
-	"order": [
-		"content",
-		"sidebar"
-	]
+  "layout": "article",
+  "sections": {
+    "content": {
+      "type": "bf-article-content",
+      "blocks": {
+        "89a52785-ef84-4c67-bf66-9ac43f90bccf": {
+          "type": "content",
+          "settings": {
+          }
+        },
+        "8ab7bc97-2043-48a5-b2ff-44d0980fc726": {
+          "type": "tags",
+          "settings": {
+          }
+        },
+        "14f54cb6-dca6-4021-86ed-16d2b4ab1c6c": {
+          "type": "share",
+          "settings": {
+            "facebook": true,
+            "twitter": true,
+            "linkedin": true,
+            "email": true
+          }
+        },
+        "a16c812a-c77e-4301-b290-a80378852831": {
+          "type": "comments",
+          "settings": {
+          }
+        },
+        "b239a845-74f6-4732-9e2a-f4e4603cfff6": {
+          "type": "form",
+          "settings": {
+          }
+        },
+        "ee5897b7-4d1f-48be-ae6e-0a3849aafc7a": {
+          "type": "blog",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "89a52785-ef84-4c67-bf66-9ac43f90bccf",
+        "8ab7bc97-2043-48a5-b2ff-44d0980fc726",
+        "14f54cb6-dca6-4021-86ed-16d2b4ab1c6c",
+        "a16c812a-c77e-4301-b290-a80378852831",
+        "b239a845-74f6-4732-9e2a-f4e4603cfff6",
+        "ee5897b7-4d1f-48be-ae6e-0a3849aafc7a"
+      ],
+      "settings": {
+      }
+    },
+    "sidebar": {
+      "type": "bf-article-sidebar",
+      "blocks": {
+        "379b8e62-ef2a-41ce-8138-9b978bea629c": {
+          "type": "title",
+          "settings": {
+            "title_sidebar": "Titulo"
+          }
+        },
+        "08327974-9a16-4431-aeb1-b914fadf8c12": {
+          "type": "text",
+          "settings": {
+            "text_sidebar": "Es un hecho establecido hace demasiado tiempo que un lector se distraerá con el contenido del texto de un sitio mientras que mira su diseño."
+          }
+        },
+        "30032de2-0748-4bc0-b8d9-1b4308daa117": {
+          "type": "image",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "379b8e62-ef2a-41ce-8138-9b978bea629c",
+        "08327974-9a16-4431-aeb1-b914fadf8c12",
+        "30032de2-0748-4bc0-b8d9-1b4308daa117"
+      ],
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "content",
+    "sidebar"
+  ]
 }
