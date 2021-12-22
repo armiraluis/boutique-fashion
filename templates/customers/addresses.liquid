@@ -1,12 +1,61 @@
 <section class="address">
-  <div class="container">
-    <div class="row">
-      <div class="col-12 mt-5">
-        <div class="heading mt-5">
-          <h1>My Addresses</h1>
-          <p class="mb-4">{% render 'icon-account' %}</p>
-        </div>
-      </div>
-    </div>
-  </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-12 py-5">
+				<div class="heading">
+					<h1>My Addresses</h1>
+					<p class="mb-4 icon-acoount d-flex align-items: center;">{% render 'icon-account' %} <a href="{{ routes.account_url }}">Return to Account Details</a></p>
+
+					<!-- Modal -->
+					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+						New Address
+					</button>
+				
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-lg modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">New Address</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								{% form 'customer_address', customer.new_address  %}
+									<div class="modal-body">
+										<div class="row">
+											<div class="col-12 col-md-6">
+												<div class="form-floating mb-3">
+													<input type="text" name="address[first_name]" value="{{ address.first_name }}" class="form-control" id="firstName" placeholder="First Name">
+													<label for="fistName">First Name</label>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<input type="text" placeholder="Last Name">
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-12">
+												<input type="text" placeholder="Company">
+											</div>
+										</div>
+									</div>
+								{% endform %}
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-primary">Save changes</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
+
+<style>
+	.icon-acoount svg {
+		width: 20px;
+		height: 20px;
+		margin-right: 10px;
+	}
+</style>
