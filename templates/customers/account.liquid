@@ -10,7 +10,7 @@
 	</div>
 	<div class="row">
 		<div class="col-12 col-lg-10">
-			<h3>Order History</h3>
+			<h3>Historial de ordenes</h3>
 			{% paginate customer.orders by 50 %}
 				{%- if customer.orders.size > 0 -%}
 					<table class="table table-striped">
@@ -18,8 +18,8 @@
 							<tr>
 								<th scope="col">Orden</th>
 								<th scope="col">Fecha</th>
-								<th scope="col">Payment Status</th>
-								<th scope="col">Fulfillment Status</th>
+								<th scope="col">Estatus de pago</th>
+								<th scope="col">Estatus de entrega</th>
 								<th scope="col">Total</th>
 							</tr>
 						</thead>
@@ -38,7 +38,7 @@
 						</tbody>
 					</table>
 				{%- else -%}
-					<p>No Orders Yet.</p>
+					<p>Aun no se ha generado ninguna orden.</p>
 				{%- endif -%}
 
 				{% if paginate.pages > 1 %}
@@ -71,10 +71,10 @@
 			{% endpaginate %}
 		</div>
 		<div class="col-12 col-lg-2">
-			<h4>Customer Addresses</h4>
+			<h4>Direcciones del cliente</h4>
 			{{ customer.default_address | format_address }}
 			<a href="{{ routes.account_addresses_url }}">
-				{{ 'View All Addresses' }} ({{ customer.addresses_count }})
+				{{ 'Ver todas las direcciones' }} ({{ customer.addresses_count }})
 			</a>
 		</div>
 	</div>
