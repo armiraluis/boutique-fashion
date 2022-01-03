@@ -95,13 +95,9 @@
 										<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#editAddressModal-{{ forloop.index }}">
 											Editar direccion
 										</button>
-										<form method="POST" action="/account/address/{{ address.id }}" id="delete_address">
-											<input type="hidden" name="_method" value="delete">
-											<button type="submit" class="btn btn-danger">Borrar direccion</button>
-										</form>
 										<form class="address-delete-form" method="post" action="/account/addresses/{{ address.id }}">
 											<input type="hidden" name="_method" value="delete">
-											<button type="submit">{{ 'customer.addresses.delete' | t }}</button>
+											<button type="submit" class="btn btn-danger">Borrar direccion</button>
 										</form>
 									</div>
 								</div>
