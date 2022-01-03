@@ -4,7 +4,7 @@
 			<div class="col-12 col-md-7 mx-auto">
 				<div class="login-form pt-5 mb-5">
 					<div class="heading">
-						<h1>Login</h1>
+						<h1 class="mb-3">Ingresar</h1>
 					</div>
 					{% form 'customer_login' %}
 						{% if form.errors %}
@@ -15,19 +15,19 @@
 	
 						<div class="form-floating mb-3">
 							<input type="email" name="customer[email]" class="form-control" id="formEmail" placeholder="Email">
-							<label for="formEmail">Email</label>
+							<label for="formEmail">Correo Electronico</label>
 						</div>
 	
 						<div class="form-floating mb-3">
 							<input type="password" name="customer[password]" class="form-control" id="formPassword" placeholder="Password">
-							<label for="formPassword">Password</label>
+							<label for="formPassword">Contraseña</label>
 						</div>
 	
-						<a href="#0" class="d-inline-block forgot-password mb-mx-auto">Forgot your Password</a>
+						<a href="#0" class="d-inline-block forgot-password mb-mx-auto">Olvidaste tu contraseña?</a>
 						<br/>
-						<input type="submit" class="btn btn-primary mb-5" value="Login">
+						<input type="submit" class="btn btn-danger mt-3 mb-5" value="Login">
 						<br/>
-						<a href="{{ routes.account_register_url }}">Create an Account</a>
+						<a href="{{ routes.account_register_url }}" class="text-decoration-none">Crear una cuenta</a>
 					{% endform %} 
 				</div>
 				<div class="recover-password d-none pt-5 mb-5">
