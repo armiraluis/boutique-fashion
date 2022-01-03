@@ -1,61 +1,205 @@
-<section class="address">
+<section>
 	<div class="container">
 		<div class="row">
-			<div class="col-12 py-5">
+			<div class="col-12 pt-5 pb-3">
 				<div class="heading">
-					<h1>My Addresses</h1>
-					<p class="mb-4 icon-acoount d-flex align-items: center;">{% render 'icon-account' %} <a href="{{ routes.account_url }}">Return to Account Details</a></p>
-
-					<!-- Modal -->
-					<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+					<h1>My Address</h1>
+					<p class="mb-4"><a href="{{ routes.account_url }}">Return to Account Details</a></p>
+					
+					<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newAddress">
 						New Address
 					</button>
-				
+					
 					<!-- Modal -->
-					<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog modal-lg modal-dialog-centered">
+					<div class="modal fade" id="newAddress" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">New Address</h5>
+									<h5 class="modal-title" id="staticBackdropLabel">New Address</h5>
 									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 								</div>
-								{% form 'customer_address', customer.new_address  %}
+								{% form 'customer_address', customer.new_address %}
 									<div class="modal-body">
 										<div class="row">
 											<div class="col-12 col-md-6">
 												<div class="form-floating mb-3">
-													<input type="text" name="address[first_name]" value="{{ address.first_name }}" class="form-control" id="firstName" placeholder="First Name">
-													<label for="fistName">First Name</label>
+													<input type="text" name="address[first_name]" value="{{ address.first_name }}" class="form-control" id="firstName" placeholder="First Name" required>
+													<label for="firstName">First Name</label>
 												</div>
 											</div>
 											<div class="col-12 col-md-6">
-												<input type="text" placeholder="Last Name">
+												<div class="form-floating mb-3">
+													<input type="text" name="address[last_name]" value="{{ address.last_name }}" class="form-control" id="lastName" placeholder="Last Name" required>
+													<label for="lastName">Last Name</label>
+												</div>
 											</div>
-										</div>
-										<div class="row">
-											<div class="col-12">
-												<input type="text" placeholder="Company">
+											<div class="col-12 col-md-12">
+												<div class="form-floating mb-3">
+													<input type="text" name="address[company]" value="{{ address.company }}" class="form-control" id="company" placeholder="Company" required>
+													<label for="company">Company</label>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-floating mb-3">
+													<input type="text" name="address[address1]" value="{{ address.address1 }}" class="form-control" id="address1" placeholder="Address 1" required>
+													<label for="address1">Address 1</label>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-floating mb-3">
+													<input type="text" name="address[address2]" value="{{ address.address2 }}" class="form-control" id="address2" placeholder="Address 2" required>
+													<label for="address2">Address 2</label>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-floating mb-3">
+													<input type="text" name="address[city]" value="{{ address.city }}" class="form-control" id="city" placeholder="City" required>
+													<label for="city">City</label>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-floating mb-3">
+													<input type="text" name="address[zip]" value="{{ address.zip }}" class="form-control" id="zip" placeholder="Zip" required>
+													<label for="zip">Zip</label>
+												</div>
+											</div>
+											<div class="col-12 col-md-6">
+												<div class="form-floating mb-3">
+													<input type="tel" name="address[phone]" value="{{ address.phone }}" class="form-control" id="phone" placeholder="Phone" required>
+													<label for="phone">Phone</label>
+												</div>
 											</div>
 										</div>
 									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Save Address</button>
+									</div>
 								{% endform %}
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-									<button type="button" class="btn btn-primary">Save changes</button>
-								</div>
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
+			<div class="col-12 col-md-12 pb-5">
+				<div class="row">
+					{% paginate customer.addresses by 8 %}
+						{% for address in customer.addresses %}
+							<div class="col-12 col-md-6 col-lg-4">
+								<div class="card w-100">
+									<div class="card-body">
+										{{ address | format_address }}
+
+										<!-- Button trigger modal -->
+										<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editAddressModal-{{ forloop.index }}">
+											Edit Address
+										</button>
+										<form method="POST" action="/account/address/{{ address.id }}" id="delete_address">
+											<input type="hidden" name="_method" value="delete">
+											<button type="submit" class="btn btn-sm btn-danger">Delete Address</button>
+										</form>
+									</div>
+								</div>
+							</div>
+
+							<!-- Modal -->
+							<div class="modal fade" id="editAddressModal-{{ forloop.index }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										{% form 'customer_address', address %}
+											<div class="modal-body">
+												<div class="row">
+													<div class="col-12 col-md-6">
+														<div class="form-floating mb-3">
+															<input type="text" name="address[first_name]" value="{{ address.first_name }}" class="form-control" id="firstName" placeholder="First Name" required>
+															<label for="firstName">First Name</label>
+														</div>
+													</div>
+													<div class="col-12 col-md-6">
+														<div class="form-floating mb-3">
+															<input type="text" name="address[last_name]" value="{{ address.last_name }}" class="form-control" id="lastName" placeholder="Last Name" required>
+															<label for="lastName">Last Name</label>
+														</div>
+													</div>
+													<div class="col-12 col-md-12">
+														<div class="form-floating mb-3">
+															<input type="text" name="address[company]" value="{{ address.company }}" class="form-control" id="company" placeholder="Company" required>
+															<label for="company">Company</label>
+														</div>
+													</div>
+													<div class="col-12 col-md-6">
+														<div class="form-floating mb-3">
+															<input type="text" name="address[address1]" value="{{ address.address1 }}" class="form-control" id="address1" placeholder="Address 1" required>
+															<label for="address1">Address 1</label>
+														</div>
+													</div>
+													<div class="col-12 col-md-6">
+														<div class="form-floating mb-3">
+															<input type="text" name="address[address2]" value="{{ address.address2 }}" class="form-control" id="address2" placeholder="Address 2" required>
+															<label for="address2">Address 2</label>
+														</div>
+													</div>
+													<div class="col-12 col-md-6">
+														<div class="form-floating mb-3">
+															<input type="text" name="address[city]" value="{{ address.city }}" class="form-control" id="city" placeholder="City" required>
+															<label for="city">City</label>
+														</div>
+													</div>
+													<div class="col-12 col-md-6">
+														<div class="form-floating mb-3">
+															<input type="text" name="address[zip]" value="{{ address.zip }}" class="form-control" id="zip" placeholder="Zip" required>
+															<label for="zip">Zip</label>
+														</div>
+													</div>
+													<div class="col-12 col-md-6">
+														<div class="form-floating mb-3">
+															<input type="tel" name="address[phone]" value="{{ address.phone }}" class="form-control" id="phone" placeholder="Phone" required>
+															<label for="phone">Phone</label>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+												<button type="submit" class="btn btn-primary">Save Changes</button>
+											</div>
+										{% endform %}
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+					{% endpaginate %}
 				</div>
 			</div>
 		</div>
 	</div>
 </section>
 
-<style>
-	.icon-acoount svg {
-		width: 20px;
-		height: 20px;
-		margin-right: 10px;
-	}
-</style>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	var myModal = new bootstrap.Modal(document.getElementById("exampleModal"));
+	myModal.show();
+</script>
