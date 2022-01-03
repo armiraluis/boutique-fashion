@@ -108,7 +108,7 @@
 								<div class="modal-dialog modal-dialog-centered">
 									<div class="modal-content">
 										<div class="modal-header">
-											<h5 class="modal-title" id="staticBackdropLabel">Agregar Direccion</h5>
+											<h5 class="modal-title" id="staticBackdropLabel">Editar Direccion</h5>
 											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 										</div>
 										{% form 'customer_address', address %}
@@ -116,57 +116,57 @@
 												<div class="row">
 													<div class="col-12 col-md-6">
 														<div class="form-floating mb-3">
-															<input type="text" name="address[first_name]" value="{{ address.first_name }}" class="form-control" id="firstName" placeholder="First Name" required>
-															<label for="firstName">First Name</label>
+															<input type="text" name="address[first_name]" value="{{ address.first_name }}" class="form-control" id="firstName" placeholder="Nombre" required>
+															<label for="firstName">Nombre</label>
 														</div>
 													</div>
 													<div class="col-12 col-md-6">
 														<div class="form-floating mb-3">
-															<input type="text" name="address[last_name]" value="{{ address.last_name }}" class="form-control" id="lastName" placeholder="Last Name" required>
-															<label for="lastName">Last Name</label>
+															<input type="text" name="address[last_name]" value="{{ address.last_name }}" class="form-control" id="lastName" placeholder="Apellidos" required>
+															<label for="lastName">Apellidos</label>
 														</div>
 													</div>
 													<div class="col-12 col-md-12">
 														<div class="form-floating mb-3">
-															<input type="text" name="address[company]" value="{{ address.company }}" class="form-control" id="company" placeholder="Company" required>
-															<label for="company">Company</label>
+															<input type="text" name="address[company]" value="{{ address.company }}" class="form-control" id="company" placeholder="Compania" required>
+															<label for="company">Compania</label>
 														</div>
 													</div>
 													<div class="col-12 col-md-6">
 														<div class="form-floating mb-3">
-															<input type="text" name="address[address1]" value="{{ address.address1 }}" class="form-control" id="address1" placeholder="Address 1" required>
-															<label for="address1">Address 1</label>
+															<input type="text" name="address[address1]" value="{{ address.address1 }}" class="form-control" id="address1" placeholder="Direccion 1" required>
+															<label for="address1">Direccion 1</label>
 														</div>
 													</div>
 													<div class="col-12 col-md-6">
 														<div class="form-floating mb-3">
-															<input type="text" name="address[address2]" value="{{ address.address2 }}" class="form-control" id="address2" placeholder="Address 2" required>
-															<label for="address2">Address 2</label>
+															<input type="text" name="address[address2]" value="{{ address.address2 }}" class="form-control" id="address2" placeholder="Direccion 2" required>
+															<label for="address2">Direccion 2</label>
 														</div>
 													</div>
 													<div class="col-12 col-md-6">
 														<div class="form-floating mb-3">
-															<input type="text" name="address[city]" value="{{ address.city }}" class="form-control" id="city" placeholder="City" required>
-															<label for="city">City</label>
+															<input type="text" name="address[city]" value="{{ address.city }}" class="form-control" id="city" placeholder="Ciudad" required>
+															<label for="city">Ciudad</label>
 														</div>
 													</div>
 													<div class="col-12 col-md-6">
 														<div class="form-floating mb-3">
-															<input type="text" name="address[zip]" value="{{ address.zip }}" class="form-control" id="zip" placeholder="Zip" required>
-															<label for="zip">Zip</label>
+															<input type="text" name="address[zip]" value="{{ address.zip }}" class="form-control" id="zip" placeholder="Codigo Zip" required>
+															<label for="zip">Codigo Zip</label>
 														</div>
 													</div>
 													<div class="col-12 col-md-6">
 														<div class="form-floating mb-3">
-															<input type="tel" name="address[phone]" value="{{ address.phone }}" class="form-control" id="phone" placeholder="Phone" required>
-															<label for="phone">Phone</label>
+															<input type="tel" name="address[phone]" value="{{ address.phone }}" class="form-control" id="phone" placeholder="Telefono" required>
+															<label for="phone">telefono</label>
 														</div>
 													</div>
 												</div>
 											</div>
 											<div class="modal-footer">
-												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-												<button type="submit" class="btn btn-primary">Save Changes</button>
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+												<button type="submit" class="btn btn-primary">Guardar cambios</button>
 											</div>
 										{% endform %}
 									</div>
@@ -185,7 +185,7 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Eliminar direccion</h5>
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
@@ -193,7 +193,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+				<button type="button" class="btn btn-primary">Borrar direccion</button>
 			</div>
 		</div>
 	</div>
