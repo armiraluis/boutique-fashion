@@ -1,28 +1,28 @@
 <section>
-	<div class="container">
+	<div class="container py-5">
 		<div class="row">
-			<div class="col-12 col-8 mx-auto">
+			<div class="col-12 col-md-4 mx-auto">
 				{% unless shop.password_message == blank %}
 					<div class="message p-3 bg-light border border-danger">
 						<h1>{{ shop.password_message }}</h1>
 					</div>
 				{% endunless %}
 
-				<div class="password_form pt-5">
+				<div class="password_form py-5">
 					{% form "storefront_password" %}
 						{{ form_errors | default_errors }}
 						<div class="form-floating mb-3">
-							<input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-							<label for="floatingPassword">Password</label>
+							<input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Contraseña">
+							<label for="floatingPassword">Contraseña</label>
 						</div>
 
-						<div class="submit">
-							<input class="btn btn-primary" type="submit" value="Entrar">
+						<div class="submit text-center">
+							<input class="btn btn-danger" type="submit" value="Ingresar">
 						</div>
 					{% endform %}
 				</div>
 
-				<div class="email-signup-form pt-5">
+				<div class="email-signup-form py-5">
 					{% form "customer" %}
 						{{ form_errors | default_errors }}
 						<div class="tags">
@@ -31,11 +31,11 @@
 
 						<div class="form-floating mb-3">
 							<input type="email" name="contact[email]" class="form-control" id="floatingInput" placeholder="example@gmail.com">
-							<label for="floatingInput">Email Address</label>
+							<label for="floatingInput">Correo Electronico</label>
 						</div>
 
-						<div class="submit">
-							<input type="submit" class="btn btn-primary" value="Ingresar">
+						<div class="submit text-center">
+							<input type="submit" class="btn btn-danger" value="Ingresar">
 						</div>
 					{% endform %}
 				</div>
