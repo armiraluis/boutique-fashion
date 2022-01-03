@@ -11,26 +11,26 @@
                             <div class="alert alert-waring">
                                 {{ form.errors | default_erros }}
                             </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" name="customer[first_name]" id="firstname" placeholder="Nombre" class="form-control" required>
-                                <label for="firstname">Nombre</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" name="customer[last_name]" id="lastname" placeholder="Apellidos" class="form-control" required>
-                                <label for="lastname">Apellidos</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="text" name="customer[email]" id="email" placeholder="Correo Electronico" class="form-control" required>
-                                <label for="email">Correo Electronico</label>
-                            </div>
-                            <div class="form-floating mb-3">
-                                <input type="password" name="customer[password]" id="password" placeholder="Contraseña" class="form-control" required>
-                                <label for="password">Contraseña</label>
-                            </div>
-                            <div class="d-flex justify-content-center">
-                                <input type="submit" class="btn btn-lg btn-danger" value="Crear Cuenta">
-                            </div>
                         {% endif %}
+                        <div class="form-floating mb-3">
+                            <input type="text" name="customer[first_name]" id="firstname" placeholder="Nombre" class="form-control" required>
+                            <label for="firstname">Nombre</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="customer[last_name]" id="lastname" placeholder="Apellidos" class="form-control" required>
+                            <label for="lastname">Apellidos</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="text" name="customer[email]" id="email" placeholder="Correo Electronico" class="form-control" required>
+                            <label for="email">Correo Electronico</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" name="customer[password]" id="password" placeholder="Contraseña" class="form-control" required>
+                            <label for="password">Contraseña</label>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <input type="submit" class="btn btn-lg btn-danger" value="Crear Cuenta">
+                        </div>
                     {% endform %}
                 </div>
             </div>
