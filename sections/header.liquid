@@ -32,6 +32,21 @@
 				{% endfor %}
 			</ul>
 		</div> 
+		<div class="icons me-4">
+			{% if shop.customer_accounts_enabled %}
+			{% if customer %}
+			<a href="{{ routes.account_url }}" class="text-white text-decoration-none">Cuenta</a>
+			{% else %}
+			<a href="{{ routes.account_login_url }}" class="text-white text-decoration-none">Ingresar</a>
+			<span class="text-white ms-2 me-2">|</span>
+			<a href="{{ routes.account_register_url }}" class="text-white text-decoration-none">Registrarse</a>
+			{% endif %}
+			{% endif %}
+		</div>
+		<form action="{{ routes.search_url }}" class="d-flex ms-auto">
+			<input type="search" class="form-control me-2" name="q" value="{{ search.terms | escape }}" placeholder="Buscar" aria-label="Search">
+			<button type="submit" class="btn btn-outline-light text-white">Buscar</button>
+		</form>
 	</div>
 </nav>
 
